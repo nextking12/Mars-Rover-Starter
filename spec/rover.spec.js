@@ -17,8 +17,20 @@ describe("Rover class", function() {
     expect(newPosition.position).toBe(43333)
     expect(roverMode.mode).toBe('NORMAL')
     expect(generatorWatts.generatorWatts).toBe(110)
+  });
+  //TEST 8
+
+  it("response returned by receiveMessage contains the name of the message", function(){
+   // let newMessage = new Message("message")
+    let newRover = new Rover("message")
+
+    expect(newRover.receieveMessage("message")).toBe(newRover.name)
+  
+
+    
   })
 
-  // 7 tests here!
+
+  
 
 });
