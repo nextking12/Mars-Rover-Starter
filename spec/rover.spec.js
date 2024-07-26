@@ -28,10 +28,10 @@ describe("Rover class", function() {
    //TEST 9
    it("response returned by receiveMessage includes two results if two commands are sent in the message", function(){
     let newRover = new Rover()
-    let commands = ["Stop", "Go"]
-    let messageObject = {name: "Test", commands : [commands]};
+    let results = ["Stop", "Go"]
+    let messageObject = {name: "Test", results : [results]};
 
-    expect(newRover.receieveMessage(messageObject)).toEqual({name :"Test", commands :[commands] })
+    expect(newRover.receieveMessage(messageObject)).toEqual({name :"Test", results :[results] })
 
   });
 

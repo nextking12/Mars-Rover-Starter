@@ -1,10 +1,14 @@
 const Message = require("./message");
 
-let commands = ["Stop", "Go"];
+let results = ["Complete", "Incomplete"];
+///let newMessage = new Message()
+
+let commands = ["MOVE", "STATUS_CHECK", "MODE_CHANGE"]
+let roverStatus = {};
 
 let testObj = {
-   name : "King",
-   commands : [commands]
+   name : "MOVE",
+   results : [results]
 };
 
 class Rover {
@@ -22,19 +26,21 @@ class Rover {
             retObj["name"] = message.name
             //console.log(retObj);
             //return retObj;
-         }   if (message.name && message.commands){
+         }   if (message.name && message.results){
              retObj["name"] = message.name;
-                retObj["commands"] = message.commands;
+                retObj["results"] = message.results;
                 return retObj;
+         }  //   if (message.commands === newMessage("STATUS_CHECK")){
+
          }
         // return retObj;
-
+      
 
       }
-   }
+  // }
    
    let newRover = new Rover()
-   console.log(newRover.receieveMessage(testObj));
+   console.log(newRover.receieveMessage(testObj).results);
     // console.log(testObj.commands[0][1]) 
      
 
