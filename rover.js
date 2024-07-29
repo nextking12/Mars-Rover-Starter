@@ -1,15 +1,5 @@
 const Message = require("./message");
 
-let results = ["Complete", "Incomplete"];
-///let newMessage = new Message()
-
-let commands = ["MOVE", "STATUS_CHECK", "MODE_CHANGE"]
-let roverStatus = {};
-
-let testObj = {
-   name : "MOVE",
-   results : [results]
-};
 
 class Rover {
    // Write code here!
@@ -19,29 +9,47 @@ class Rover {
       this.generatorWatts = 110
       
       }
-      receieveMessage(message){
-         let retObj = {};
+      receiveMessage(message){
+         
+         let returnObj = {
+            message : message.name,
+            results : []
+         }; 
 
-         if (message.name){
-            retObj["name"] = message.name
-            //console.log(retObj);
-            //return retObj;
-         }   if (message.name && message.results){
-             retObj["name"] = message.name;
-                retObj["results"] = message.results;
-                return retObj;
-         }  //   if (message.commands === newMessage("STATUS_CHECK")){
+         
 
+
+         for (let i = 0; i < message.commands.length; i++) {
+            if (message.commands[i].commandType === "STATUS_CHECK") {
+               returnObj.results.push({completed: true, roverStatus: {mode: this.mode, generatorWatts: this.generatorWatts, position: this.position}})
+
+            } else if (message.commands[i].commandType === "MODE_CHANGE") {
+               this.mode = message.commands[i].value
+               returnObj.results.push({completed: true})
+               
+            } else if (message.commands[i].commandType === "MOVE") {
+               if (this.mode === "LOW_POWER"){
+                  returnObj.results.push({completed: false})
+               
+               
+            } else if (this.mode === "NORMAL") {
+               returnObj.results.push({completed: true})
+               this.position = message.commands[i].value
+               
+            } 
+            
          }
-        // return retObj;
-      
-
       }
-  // }
+       
+      return returnObj;
+      
+   } 
+      
+}
+      
+  
    
-   let newRover = new Rover()
-   console.log(newRover.receieveMessage(testObj).results);
-    // console.log(testObj.commands[0][1]) 
+   
      
 
 
